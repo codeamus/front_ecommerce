@@ -1,11 +1,24 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import { sanity } from "../lib/sanity.client";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Consulta de ejemplo: ajusta al tipo que tengas o deja vacío.
+const docs = await sanity.fetch(`*[_type == "post"][0..4]{_id, title}`);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Astro + Sanity</title>
+  </head>
+  <body>
+    <main>
+      <h1>Home</h1>
+      <p><a href="/studio">Ir al Studio</a></p>
+      <h2>Posts (ejemplo)</h2>
+      <ul>
+        {docs?.map((d) => <li>{d.title ?? d._id}</li>)}
+      </ul>
+    </main>
+  </body>
+</html>
