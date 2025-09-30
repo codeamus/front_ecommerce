@@ -4,9 +4,9 @@ import { visionTool } from "@sanity/vision";
 
 // Puedes hardcodear projectId/dataset si prefieres evitar fallos en build.
 export default defineConfig({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || "8v549uft",
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET || "production",
-  title: "Studio",
-  basePath: "/studio",
-  plugins: [structureTool(), visionTool()],
+  projectId: "8v549uft",
+  dataset: "production",
+  basePath: "/studio", // 👈 importante
+  // ...
 });
+
