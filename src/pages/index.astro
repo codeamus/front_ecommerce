@@ -1,24 +1,18 @@
 ---
-import "../styles/global.css";
 import { sanity } from "../lib/sanity.client";
-
-// Consulta de ejemplo: ajusta al tipo que tengas o deja vacío.
-const docs = await sanity.fetch(`*[_type == "post"][0..4]{_id, title}`);
+import { promoBannerQuery } from "../lib/queries";
+const banner = await sanity.fetch(promoBannerQuery);
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <title>Astro + Sanity</title>
-  </head>
-  <body>
-    <main>
-      <h1>Home</h1>
-      <p><a href="/studio">Ir al Studio</a></p>
-      <h2>Posts (ejemplo)</h2>
-      <ul>
-        {docs?.map((d) => <li>{d.title ?? d._id}</li>)}
-      </ul>
-    </main>
-  </body>
-</html>
+{
+  banner && (
+    <section>
+      <h2>{banner.title}</h2>
+      {banner.subtitle && <p>{banner.subtitle}</p>}
+      {banner.imageUrl && <img src={banner.imageUrl} alt={banner.title} />}
+      {banner.ctaUrl && (
+        <a href={banner.ctaUrl}>{banner.ctaText || "Ver más"}</a>
+      )}
+    </section>
+  )
+}

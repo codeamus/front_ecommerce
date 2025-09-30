@@ -1,9 +1,7 @@
 import {defineConfig, isDev} from 'sanity'
-
 import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './schemaTypes'
 import {structure} from './structure'
-
 import {visionTool} from '@sanity/vision'
 import {colorInput} from '@sanity/color-input'
 import {imageHotspotArrayPlugin} from 'sanity-plugin-hotspot-array'
@@ -15,10 +13,14 @@ const devOnlyPlugins = [visionTool()]
 
 export default defineConfig({
   name: 'default',
-  title: 'ecommerce-tea',
+  title: 'test',
 
-  projectId: 'ep7z5irs',
-  dataset: 'production',
+  // 👇 usa envs y deja fallback seguro a prod/dev
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? '8v549uft',
+  dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? (isDev ? 'development' : 'production'),
+
+  // 👇 importante para que el Studio funcione en /studio
+  basePath: '/studio',
 
   plugins: [
     structureTool({structure}),
@@ -29,26 +31,16 @@ export default defineConfig({
     ...(isDev ? devOnlyPlugins : []),
   ],
 
-  schema: {
-    types: schemaTypes,
-  },
+  schema: {types: schemaTypes},
 
   form: {
     file: {
-      assetSources: (previousAssetSources) => {
-        return previousAssetSources.filter((assetSource) => assetSource !== mediaAssetSource)
-      },
+      assetSources: (prev) => prev.filter((s) => s !== mediaAssetSource),
     },
     image: {
-      assetSources: (previousAssetSources) => {
-        return previousAssetSources.filter((assetSource) => assetSource === mediaAssetSource)
-      },
+      assetSources: (prev) => prev.filter((s) => s === mediaAssetSource),
     },
   },
 
-  studio: {
-    components: {
-      navbar: Navbar,
-    },
-  },
+  studio: {components: {navbar: Navbar}},
 })

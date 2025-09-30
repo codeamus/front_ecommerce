@@ -1,7 +1,7 @@
 import react from "@astrojs/react";
+import vercel from "@astrojs/vercel/serverless"; // o edge si prefieres
 
-/** @type {import('astro').AstroUserConfig} */
 export default {
+  adapter: vercel(),
   integrations: [react()],
-  output: "static",
 };
