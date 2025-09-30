@@ -29,13 +29,12 @@
     "sanity": "^4.10.2",
     "sanity-plugin-hotspot-array": "^3.0.1",
     "sanity-plugin-media": "^4.0.0",
-    "styled-components": "^5.3.11"
+    "styled-components": "^6"
   },
   "packageManager": "pnpm@8.15.0+sha512.ea45517d5285d123eac02c3793505fa1fd6da90a2fc60d1e8d9e0c1e9292886ecfaff513f062b9d1cc8021bb8615033b1ac5bea3b2ee3fc165a6d7034bbe6b03",
   "devDependencies": {
     "@astrojs/vercel": "^8.2.8",
     "@portabletext/types": "^2.0.15",
-    "@sanity/eslint-config-studio": "^5.0.2",
-    "@types/styled-components": "^5.1.34"
+    "@sanity/eslint-config-studio": "^5.0.2"
   }
 }
