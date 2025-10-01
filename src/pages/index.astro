@@ -1,6 +1,8 @@
 ---
 import { sanity } from "../lib/sanity.client";
 import { promoBannerQuery } from "../lib/queries";
+import { urlFor } from "../lib/sanity.image";
+
 const banner = await sanity.fetch(promoBannerQuery);
 ---
 
@@ -9,7 +11,19 @@ const banner = await sanity.fetch(promoBannerQuery);
     <section>
       <h2>{banner.title}</h2>
       {banner.subtitle && <p>{banner.subtitle}</p>}
-      {banner.imageUrl && <img src={banner.imageUrl} alt={banner.title} />}
+
+      {banner.image && (
+        <img
+          src={urlFor(banner.image)
+            .width(1200)
+            .format("webp")
+            .quality(60)
+            .url()}
+          alt={banner.title}
+          loading="lazy"
+        />
+      )}
+
       {banner.ctaUrl && (
         <a href={banner.ctaUrl}>{banner.ctaText || "Ver más"}</a>
       )}
